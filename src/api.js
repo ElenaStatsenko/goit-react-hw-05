@@ -14,3 +14,11 @@ export const fetchTrendyMovies = async () => {
   const response = await axios.get(url, options);
   return response.data.results;
 };
+
+export const fetchMovieDetails= async(id)=> {
+  
+ const url=`https://api.themoviedb.org/3/movie/${id}?language=en-US`   
+ 
+const response = await axios.get(url, options);
+return response.data.results;
+}
