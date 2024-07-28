@@ -4,7 +4,11 @@ import { useParams } from 'react-router-dom';
 
       
 export default function MovieDetailsPage() {
+
+
     const { id } = useParams();
+
+
     const [moviesDetails, setMoviesDetais] = useState(null);
     useEffect(() => {
       const getMoviesDetais= async () => {
