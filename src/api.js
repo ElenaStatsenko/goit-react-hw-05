@@ -15,10 +15,32 @@ export const fetchTrendyMovies = async () => {
   return response.data.results;
 };
 
-export const fetchMovieDetails= async(id)=> {
+export const fetchMovieDetails = async (id) => {
+  const url = `https://api.themoviedb.org/3/movie/${id}?language=en-US`;
 
- const url=`https://api.themoviedb.org/3/movie/${id}?language=en-US`   
- 
-const response = await axios.get(url, options);
-return response.data.results;
-}
+  const response = await axios.get(url, options);
+  return response.data;
+};
+export const fetchMovieCast = async (id) => {
+  const url = `https://api.themoviedb.org/3/movie/${id}/credits?language=en-US`;
+
+  const response = await axios.get(url, options);
+
+  return response.data;
+};
+export const fetchMovieRewiew = async (id) => {
+  const url = `https://api.themoviedb.org/3/movie/${id}/reviews?language=en-US&page=1`;
+
+  const response = await axios.get(url, options);
+  return response.data.results;
+};
+
+export const fetchSearchMovie= async (searchQuery) => {
+
+  console.log(searchQuery)
+  const url = `https://api.themoviedb.org/3/search/movie?query=${searchQuery}&include_adult=false&language=en-US&page=1`;
+
+  const response = await axios.get(url, options);
+  
+  return response.data.results;
+};
