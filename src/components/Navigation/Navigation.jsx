@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
         <NavLink to="/">
           Home
         </NavLink>
-        <NavLink to="moviespage" >
+        <NavLink to="/movies" >
         Movies
         </NavLink>
         

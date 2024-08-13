@@ -1,31 +1,34 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { fetchSearchMovie } from "../../api";
-import { NavLink } from "react-router-dom";
+import {  useSearchParams, } from "react-router-dom";
 
-export default function SearchBar() {
-  const [searchMovie, setSearchMovie] = useState("");
-  const [searchQuery, setSearchQuery] = useState("");
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setSearchQuery(event.target.elements.topic.value);
-    console.log(setSearchQuery);
-  };
+export default function SearchBar({setMovies}) {
+ 
+  //   сохраняем список фильмов в состоянии
+  const [searchParams, setSearchParams] = useSearchParams();
+  // const location = useLocation();
+  const query = searchParams.get("query") ?? "";
+  console.log(query);
 
   useEffect(() => {
-    if (searchQuery === "") {
+    if (query === "") {
       return;
     }
     const getSearchMovie = async () => {
-      const data = await fetchSearchMovie(searchQuery);
-      setSearchMovie(data);
+      const data = await fetchSearchMovie(query);
+      setMovies(data);
     };
 
     getSearchMovie();
-  }, [searchQuery, setSearchMovie]);
+  }, [query, setMovies]);
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const newQuery = event.target.elements.topic.value;
+    setSearchParams({ query: newQuery });
+  };
   return (
-    <div>
+    
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -34,19 +37,7 @@ export default function SearchBar() {
         />
         <button type="submit">Search</button>
       </form>
-      {searchMovie ? (
-        <ul>
-          {searchMovie.map(({ id, title }) => (
-            <li key={id}>
-            <NavLink to={`/moviedetailspage/${id}`}>
-            {title}
-            </NavLink>
-          </li>
-          ))}
-        </ul>
-      ) : (
-        <div>Нет совпадений</div>
-      )}
-    </div>
+    
+   
   );
 }

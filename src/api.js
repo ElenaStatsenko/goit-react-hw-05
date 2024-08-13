@@ -35,10 +35,10 @@ export const fetchMovieRewiew = async (id) => {
   return response.data.results;
 };
 
-export const fetchSearchMovie= async (searchQuery) => {
+export const fetchSearchMovie= async (query) => {
 
-  console.log(searchQuery)
-  const url = `https://api.themoviedb.org/3/search/movie?query=${searchQuery}&include_adult=false&language=en-US&page=1`;
+  console.log(query)
+  const url = `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=1`;
 
   const response = await axios.get(url, options);
   
