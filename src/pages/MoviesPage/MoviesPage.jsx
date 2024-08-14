@@ -7,7 +7,7 @@ export default function MoviesPage() {
     <div>
       
       <SearchBar setMovies={setMovies}  />
-      <MovieList movies={movies}/>
+      {movies.length > 0 && <MovieList movies={movies} />}
       
     </div>
   );

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Suspense } from "react";
 import { fetchMovieDetails } from "../../api";
 
 import {
@@ -12,7 +13,7 @@ import {
 export default function MovieDetailsPage() {
   const { id } = useParams();
   const location = useLocation();
-  const backLinkUrl= useRef(location.state ?? "/")
+  const backLinkUrl = useRef(location.state ?? "/");
   const [moviesDetails, setMoviesDetails] = useState(null);
   useEffect(() => {
     const getMoviesDetais = async () => {
@@ -37,10 +38,12 @@ export default function MovieDetailsPage() {
           </p>
           <p>Genres:{moviesDetails.genres.map((genre) => genre.name)}</p>
           <nav>
-            <NavLink to="cast">Хрень</NavLink>
+            <NavLink to="cast">Актеры</NavLink>
             <NavLink to="reviews">Отзывы</NavLink>
           </nav>
-          <Outlet />
+          <Suspense fallback={<div>Loading subpage...</div>}>
+            <Outlet />
+          </Suspense>
         </div>
       ) : (
         <div>Нет данных о фильме</div>
